@@ -1,0 +1,31 @@
+{
+    "mcpServers": {
+      "context7": {
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp@latest"]
+      },
+      "sequential-thinking": {
+        "command": "npx", 
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      },
+      "magic": {
+        "command": "npx",
+        "args": ["@21st-dev/magic"],
+        "env": {"TWENTYFIRST_API_KEY": "${TWENTYFIRST_API_KEY}"}
+      },
+      "playwright": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"]
+      },
+      "morphllm-fast-apply": {
+        "command": "npx",
+        "args": ["@morph-llm/morph-fast-apply"],
+        "env": {"MORPH_API_KEY": "${MORPH_API_KEY}"}
+      },
+      "serena": {
+        "command": "uv",
+        "args": ["run", "serena", "start-mcp-server", "--context", "ide-assistant"],
+        "cwd": "$HOME/.claude/serena"
+      }
+    }
+  }

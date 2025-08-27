@@ -1,0 +1,137 @@
+# 🤖 Production Configuration for Hive-Mind System
+# Optimized for production deployment and performance
+
+environment: production
+version: "1.0.0"
+debug: false
+
+# Data directories
+data_dir: "data"
+model_dir: "models"
+log_dir: "logs"
+
+# Database configuration
+database:
+  type: "sqlite"
+  host: "localhost"
+  port: 5432
+  username: ""
+  password: ""
+  database: "lottery_hive_prod"
+  sqlite_path: "data/lottery_hive_prod.db"
+  pool_size: 20
+  max_overflow: 30
+  pool_timeout: 30
+  echo: false
+
+# Redis configuration
+redis:
+  host: "redis"
+  port: 6379
+  db: 0
+  password: null
+  max_connections: 20
+  decode_responses: true
+  socket_timeout: 5
+
+# Machine Learning configuration
+ml:
+  backend: "hybrid"
+  pytorch_device: "cpu"  # Change to "cuda" if GPU available
+  pytorch_model_path: "models/pytorch/"
+  sequence_length: 20
+  embedding_dim: 64
+  num_heads: 8
+  num_layers: 4
+  dropout: 0.1
+  sklearn_model_path: "models/sklearn/"
+  n_estimators: 100
+  max_depth: 10
+  learning_rate: 0.1
+  ensemble_weights:
+    pattern_analyzer: 0.35
+    statistical_predictor: 0.35
+    cognitive_analyzer: 0.30
+  max_memory_mb: 2048
+  model_cache_size: 5
+  batch_size: 32
+
+# Agent configuration
+agents:
+  max_agents: 10
+  spawn_timeout: 30
+  health_check_interval: 30
+  performance_threshold: 0.6
+  pattern_analyzer:
+    model_type: "transformer"
+    max_sequence_length: 20
+    diversity_threshold: 0.7
+  statistical_predictor:
+    feature_count: 100
+    ensemble_methods: ["rf", "gb", "mlp"]
+    validation_splits: 5
+  cognitive_analyzer:
+    rule_strictness: 0.8
+    anomaly_threshold: 2.0
+    explanation_depth: "detailed"
+  ensemble_optimizer:
+    optimization_interval: 100
+    weight_decay: 0.01
+    performance_window: 50
+
+# Message bus configuration
+message_bus:
+  max_queue_size: 1000
+  processing_timeout: 30.0
+  retry_max_attempts: 3
+  retry_backoff_factor: 2.0
+  critical_workers: 2
+  high_workers: 3
+  normal_workers: 2
+  low_workers: 1
+  message_history_size: 1000
+  dead_letter_queue_size: 100
+  cleanup_interval: 60
+
+# API configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  cors_origins: ["https://yourdomain.com"]
+  cors_methods: ["GET", "POST", "PUT", "DELETE"]
+  cors_headers: ["Content-Type", "Authorization"]
+  api_key_required: true
+  jwt_secret: "change-this-to-secure-secret-in-production"
+  jwt_expiry_hours: 12
+  rate_limit_enabled: true
+  rate_limit_requests: 100
+  rate_limit_period: 60
+  max_response_size: 10485760  # 10MB
+  response_timeout: 30
+
+# Performance configuration
+performance:
+  target_response_time: 200
+  max_response_time: 1000
+  max_memory_usage_mb: 2048
+  memory_cleanup_threshold: 0.85
+  max_concurrent_predictions: 10
+  prediction_timeout: 30
+  cache_enabled: true
+  cache_ttl: 300  # 5 minutes
+  cache_max_size: 1000
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  collect_system_metrics: true
+  collect_ml_metrics: true
+  collect_api_metrics: true
+  log_level: "INFO"
+  log_file: "logs/hive_mind_prod.log"
+  log_rotation: "daily"
+  log_retention: 30
+  alert_enabled: true
+  alert_error_threshold: 10
+  alert_response_time_threshold: 500

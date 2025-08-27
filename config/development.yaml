@@ -1,0 +1,137 @@
+# 🤖 Development Configuration for Hive-Mind System
+# Optimized for local development and testing
+
+environment: development
+version: "1.0.0"
+debug: true
+
+# Data directories
+data_dir: "data"
+model_dir: "models"
+log_dir: "logs"
+
+# Database configuration
+database:
+  type: "sqlite"
+  host: "localhost"
+  port: 5432
+  username: ""
+  password: ""
+  database: "lottery_hive"
+  sqlite_path: "data/lottery_hive.db"
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  echo: true
+
+# Redis configuration
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: null
+  max_connections: 5
+  decode_responses: true
+  socket_timeout: 5
+
+# Machine Learning configuration
+ml:
+  backend: "hybrid"
+  pytorch_device: "cpu"
+  pytorch_model_path: "models/pytorch/"
+  sequence_length: 20
+  embedding_dim: 64
+  num_heads: 8
+  num_layers: 4
+  dropout: 0.1
+  sklearn_model_path: "models/sklearn/"
+  n_estimators: 50
+  max_depth: 8
+  learning_rate: 0.1
+  ensemble_weights:
+    pattern_analyzer: 0.35
+    statistical_predictor: 0.35
+    cognitive_analyzer: 0.30
+  max_memory_mb: 1024
+  model_cache_size: 3
+  batch_size: 16
+
+# Agent configuration
+agents:
+  max_agents: 5
+  spawn_timeout: 30
+  health_check_interval: 60
+  performance_threshold: 0.5
+  pattern_analyzer:
+    model_type: "transformer"
+    max_sequence_length: 20
+    diversity_threshold: 0.6
+  statistical_predictor:
+    feature_count: 80
+    ensemble_methods: ["rf", "gb"]
+    validation_splits: 3
+  cognitive_analyzer:
+    rule_strictness: 0.7
+    anomaly_threshold: 1.5
+    explanation_depth: "detailed"
+  ensemble_optimizer:
+    optimization_interval: 50
+    weight_decay: 0.01
+    performance_window: 25
+
+# Message bus configuration
+message_bus:
+  max_queue_size: 500
+  processing_timeout: 20.0
+  retry_max_attempts: 3
+  retry_backoff_factor: 2.0
+  critical_workers: 1
+  high_workers: 2
+  normal_workers: 1
+  low_workers: 1
+  message_history_size: 500
+  dead_letter_queue_size: 50
+  cleanup_interval: 60
+
+# API configuration
+api:
+  host: "127.0.0.1"
+  port: 8000
+  workers: 1
+  cors_origins: ["http://localhost:3000", "http://localhost:8080", "*"]
+  cors_methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  cors_headers: ["*"]
+  api_key_required: false
+  jwt_secret: "dev-secret-key-change-in-production"
+  jwt_expiry_hours: 24
+  rate_limit_enabled: true
+  rate_limit_requests: 200
+  rate_limit_period: 60
+  max_response_size: 5242880  # 5MB
+  response_timeout: 20
+
+# Performance configuration
+performance:
+  target_response_time: 300
+  max_response_time: 1000
+  max_memory_usage_mb: 1024
+  memory_cleanup_threshold: 0.8
+  max_concurrent_predictions: 5
+  prediction_timeout: 20
+  cache_enabled: true
+  cache_ttl: 180  # 3 minutes
+  cache_max_size: 100
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  collect_system_metrics: true
+  collect_ml_metrics: true
+  collect_api_metrics: true
+  log_level: "DEBUG"
+  log_file: "logs/hive_mind_dev.log"
+  log_rotation: "daily"
+  log_retention: 7
+  alert_enabled: false
+  alert_error_threshold: 20
+  alert_response_time_threshold: 800
