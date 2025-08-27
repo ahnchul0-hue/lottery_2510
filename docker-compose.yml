@@ -1,8 +1,6 @@
 # 🤖 Next-Generation Hive-Mind Lottery Prediction System
 # Docker Compose orchestration for complete system deployment
 
-version: '3.8'
-
 services:
   # Main Hive-Mind Application
   hive-mind:
@@ -12,7 +10,7 @@ services:
       target: production
     container_name: hive-mind-app
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - HIVE_MIND_ENV=production
       - DATABASE_URL=sqlite:///data/lottery_hive.db
@@ -104,7 +102,7 @@ services:
     image: grafana/grafana:latest
     container_name: hive-mind-grafana
     ports:
-      - "3000:3000"
+      - "3002:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=hivemind2024
@@ -132,8 +130,8 @@ services:
     image: nginx:alpine
     container_name: hive-mind-proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/nginx/ssl
@@ -209,7 +207,6 @@ networks:
 # Development override for local development
 ---
 # docker-compose.override.yml (for development)
-version: '3.8'
 
 services:
   hive-mind:
@@ -223,5 +220,5 @@ services:
       - ./data:/app/data
       - ./config:/app/config
     ports:
-      - "8000:8000"
+      - "8001:8000"
       - "5678:5678"  # Debug port

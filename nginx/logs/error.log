@@ -1,0 +1,30 @@
+2025/08/27 20:42:46 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/nginx.conf:115
+2025/08/27 20:42:46 [emerg] 1#1: host not found in upstream "prometheus" in /etc/nginx/nginx.conf:95
+2025/08/27 20:42:46 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/nginx.conf:115
+2025/08/27 20:42:46 [emerg] 1#1: host not found in upstream "prometheus" in /etc/nginx/nginx.conf:95
+2025/08/27 20:42:47 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:42:47 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:42:48 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:42:50 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:42:53 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:43:00 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:43:13 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:43:38 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:18 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/nginx.conf:115
+2025/08/27 20:44:18 [emerg] 1#1: cannot load certificate "/etc/nginx/ssl/cert.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/nginx/ssl/cert.pem, r) error:10000080:BIO routines::no such file)
+2025/08/27 20:44:19 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:19 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:20 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:21 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:23 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:26 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:32 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:44:45 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:45:11 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:46:02 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:47:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:48:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:49:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:50:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:51:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
+2025/08/27 20:52:03 [emerg] 1#1: host not found in upstream "hive-mind:8000" in /etc/nginx/nginx.conf:39
