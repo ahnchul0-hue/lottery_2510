@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Hive-Mind 로또 예측 시스템</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: none;
+        }
+        .prediction {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #4ECDC4;
+        }
+        .numbers {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .bonus {
+            background: linear-gradient(45deg, #FFD93D, #FF6B6B) !important;
+            border: 2px solid #FFF;
+        }
+        .confidence {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4ECDC4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Hive-Mind 로또 예측 시스템</h1>
+        
+        <div class="info">
+            <strong>사용 가능한 접속 방법:</strong><br>
+            • 웹 인터페이스: 현재 페이지<br>
+            • API 직접 호출: <code>http://localhost:8000</code><br>
+            • API 문서: <code>http://localhost:8000/docs</code><br>
+            • 모니터링: Grafana (<code>localhost:3002</code>), Prometheus (<code>localhost:9090</code>)
+        </div>
+
+        <form id="predictionForm">
+            <div class="form-group">
+                <label for="machineType">로또 머신 선택:</label>
+                <select id="machineType" name="machineType">
+                    <option value="1호기">1호기 - 보수적 전략 (빈출번호 + 높은 AC값)</option>
+                    <option value="2호기">2호기 - 균형적 전략 (완벽한 분포 + 합계 조화)</option>
+                    <option value="3호기">3호기 - 창의적 전략 (홀수 선호 + 패턴 다양성)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="count">생성할 번호 세트 개수:</label>
+                <input type="number" id="count" name="count" min="1" max="10" value="5">
+            </div>
+
+            <button type="submit">🎲 로또 번호 생성하기</button>
+        </form>
+
+        <div id="results" class="results">
+            <h3>예측된 로또 번호</h3>
+            <div id="predictions"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const machineType = document.getElementById('machineType').value;
+            const count = parseInt(document.getElementById('count').value);
+            
+            const resultsDiv = document.getElementById('results');
+            const predictionsDiv = document.getElementById('predictions');
+            
+            // Show loading
+            resultsDiv.style.display = 'block';
+            predictionsDiv.innerHTML = '<div class="loading">🤖 AI가 로또 번호를 분석하고 있습니다...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/predictions/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        machine_type: machineType,
+                        count: count
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                displayPredictions(data);
+                
+            } catch (error) {
+                predictionsDiv.innerHTML = `<div style="color: #ff6b6b;">❌ 오류가 발생했습니다: ${error.message}</div>`;
+            }
+        });
+
+        function displayPredictions(data) {
+            const predictionsDiv = document.getElementById('predictions');
+            let html = `<p><strong>머신:</strong> ${data.machine_type} | <strong>생성 시간:</strong> ${new Date(data.generated_at).toLocaleString('ko-KR')}</p>`;
+            
+            data.predictions.forEach((prediction, index) => {
+                html += `
+                    <div class="prediction">
+                        <h4>세트 ${index + 1} - ${prediction.strategy}</h4>
+                        <div class="numbers">
+                            ${prediction.numbers.map(num => `<div class="number">${num}</div>`).join('')}
+                            ${prediction.bonus ? `<div class="number bonus">${prediction.bonus}</div>` : ''}
+                        </div>
+                        <div class="confidence">신뢰도: ${(prediction.confidence * 100).toFixed(1)}%</div>
+                    </div>
+                `;
+            });
+            
+            predictionsDiv.innerHTML = html;
+        }
+
+        // Test API connection on page load
+        window.addEventListener('load', async function() {
+            try {
+                const response = await fetch('http://localhost:8000/api/monitoring/health');
+                if (response.ok) {
+                    console.log('✅ API 연결 성공');
+                } else {
+                    console.warn('⚠️ API 응답 오류');
+                }
+            } catch (error) {
+                console.error('❌ API 연결 실패:', error);
+            }
+        });
+    </script>
+</body>
+</html>
